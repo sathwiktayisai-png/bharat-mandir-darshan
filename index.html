@@ -1,0 +1,2507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#ff9933">
+<title>Bharat Mandir Darshan 🇮🇳</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:linear-gradient(135deg,#fff4e8,#fff,#edf9ed);
+color:#30251d;
+min-height:100vh
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+
+#app{display:none}
+
+#auth{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+background:
+radial-gradient(circle at 20% 20%,#ff993355,transparent 30%),
+radial-gradient(circle at 80% 80%,#13880844,transparent 30%),
+linear-gradient(135deg,#fff,#fff7ef)
+}
+
+.auth-card{
+width:100%;
+max-width:440px;
+background:#ffffffee;
+backdrop-filter:blur(12px);
+padding:30px;
+border-radius:28px;
+box-shadow:0 25px 70px #0003;
+animation:cardIn .7s ease
+}
+@keyframes cardIn{
+from{opacity:0;transform:translateY(35px) scale(.96)}
+to{opacity:1;transform:none}
+}
+
+.logo3d{
+font-size:70px;
+text-align:center;
+animation:float3d 3s infinite ease-in-out
+}
+@keyframes float3d{
+0%,100%{transform:perspective(500px) rotateY(-8deg) translateY(0)}
+50%{transform:perspective(500px) rotateY(8deg) translateY(-12px)}
+}
+
+.auth-card h1{
+text-align:center;
+color:#713b17;
+margin:8px 0
+}
+.center{text-align:center}
+.muted{color:#777}
+.tricolor{
+height:8px;
+border-radius:20px;
+margin:20px 0;
+background:linear-gradient(to right,#ff9933 33.33%,#fff 33.33% 66.66%,#138808 66.66%)
+}
+
+label{
+display:block;
+font-weight:bold;
+margin:13px 0 6px
+}
+input,select,textarea{
+width:100%;
+padding:13px;
+border:1px solid #ddd;
+border-radius:12px;
+background:white;
+outline:none
+}
+input:focus,select:focus,textarea:focus{
+border-color:#ff9933;
+box-shadow:0 0 0 3px #ff993322
+}
+
+.btn{
+border:0;
+border-radius:12px;
+padding:12px 17px;
+font-weight:bold;
+margin:4px 2px;
+transition:.2s
+}
+.btn:hover{transform:translateY(-2px)}
+.primary{background:linear-gradient(90deg,#ff9933,#e87500);color:white}
+.green{background:#138808;color:white}
+.light{background:#fff0df;color:#713b17}
+.blue{background:#2563eb;color:white}
+.red{background:#b91c1c;color:white}
+.full{width:100%}
+
+.auth-links{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:8px
+}
+.auth-links .btn{width:100%}
+
+.message{
+padding:12px;
+border-radius:12px;
+margin:12px 0;
+line-height:1.5
+}
+.error{background:#ffe2e2;color:#a00000}
+.success{background:#e3f7e4;color:#116b18}
+.info-msg{background:#e6f0ff;color:#174a88}
+
+.demo{
+margin-top:18px;
+padding:14px;
+border-radius:14px;
+background:#f5f5f5;
+font-size:14px
+}
+
+/* APP */
+#app{display:none}
+.nav{
+position:sticky;
+top:0;
+z-index:1000;
+background:#ffffffee;
+backdrop-filter:blur(12px);
+box-shadow:0 3px 20px #0002
+}
+.nav-inner{
+max-width:1250px;
+margin:auto;
+padding:12px 18px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:15px
+}
+.brand{
+font-weight:bold;
+font-size:19px;
+color:#713b17;
+white-space:nowrap
+}
+.hamburger-btn{
+border:0;
+background:#fff0df;
+color:#713b17;
+width:46px;
+height:42px;
+border-radius:12px;
+font-size:27px;
+font-weight:bold;
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 4px 14px #0001;
+transition:.2s;
+}
+.hamburger-btn:hover{
+transform:scale(1.05);
+background:#ff9933;
+color:white;
+}
+.hamburger-menu{
+position:absolute;
+right:18px;
+top:68px;
+width:270px;
+background:#fff;
+border-radius:18px;
+padding:10px;
+box-shadow:0 18px 45px #0003;
+display:none;
+z-index:2000;
+border:1px solid #f0e1d2;
+animation:menuIn .2s ease;
+}
+.hamburger-menu.open{display:block}
+.hamburger-menu button{
+width:100%;
+border:0;
+background:transparent;
+padding:12px 14px;
+border-radius:11px;
+text-align:left;
+font-weight:600;
+color:#4b382b;
+font-size:15px;
+transition:.2s;
+}
+.hamburger-menu button:hover{
+background:#fff0df;
+color:#713b17;
+transform:translateX(3px);
+}
+@keyframes menuIn{
+from{opacity:0;transform:translateY(-8px) scale(.97)}
+to{opacity:1;transform:none}
+}
+
+.page{
+display:none;
+max-width:1250px;
+margin:auto;
+padding:28px 18px 70px
+}
+.page.active{
+display:block;
+animation:pageIn .4s ease
+}
+@keyframes pageIn{
+from{opacity:0;transform:translateY(12px)}
+to{opacity:1;transform:none}
+}
+
+.hero{
+position:relative;
+overflow:hidden;
+min-height:440px;
+border-radius:30px;
+padding:55px 35px;
+display:flex;
+align-items:center;
+background:linear-gradient(120deg,#ff9933dd,#ffffff,#138808cc);
+box-shadow:0 20px 55px #0002
+}
+.hero-content{max-width:720px;position:relative;z-index:3}
+.hero h1{
+font-size:48px;
+color:#713b17;
+margin-bottom:15px
+}
+.hero p{
+font-size:18px;
+line-height:1.8
+}
+.hero-buttons{margin-top:22px}
+
+.om3d{
+position:absolute;
+right:5%;
+font-size:230px;
+opacity:.12;
+animation:om3d 5s infinite ease-in-out
+}
+@keyframes om3d{
+0%,100%{transform:perspective(700px) rotateY(-15deg) rotateX(5deg)}
+50%{transform:perspective(700px) rotateY(20deg) rotateX(-5deg) scale(1.06)}
+}
+
+.float-temple{
+position:absolute;
+right:8%;
+bottom:20px;
+font-size:130px;
+filter:drop-shadow(0 15px 12px #0003);
+animation:templeFloat 4s infinite ease-in-out
+}
+@keyframes templeFloat{
+0%,100%{transform:translateY(0) rotateY(-8deg)}
+50%{transform:translateY(-15px) rotateY(8deg)}
+}
+
+.searchbar{
+display:flex;
+gap:10px;
+margin:24px 0
+}
+.searchbar input{flex:1}
+
+.section-title{
+margin:28px 0 15px;
+color:#713b17
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:20px
+}
+.card{
+background:white;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 9px 28px #0002;
+transition:.3s
+}
+.card:hover{
+transform:translateY(-7px) rotateX(1deg);
+box-shadow:0 18px 42px #0003
+}
+.card img{
+width:100%;
+height:190px;
+object-fit:cover
+}
+.card-body{padding:18px}
+.card h3{color:#713b17;margin-bottom:8px}
+.card p{line-height:1.6;color:#62574e}
+
+.info-card{
+background:white;
+padding:22px;
+border-radius:20px;
+box-shadow:0 8px 25px #0001
+}
+
+/* INDIA MAP */
+.map3d{
+height:450px;
+border-radius:30px;
+background:radial-gradient(circle,#fff,#fff0df);
+display:flex;
+justify-content:center;
+align-items:center;
+position:relative;
+overflow:hidden;
+box-shadow:inset 0 0 50px #0001
+}
+.india-shape{
+width:245px;
+height:350px;
+background:linear-gradient(145deg,#ff9933,#fff,#138808);
+clip-path:polygon(
+46% 0,59% 9%,66% 18%,80% 27%,87% 40%,
+80% 52%,87% 62%,72% 72%,66% 84%,57% 100%,
+44% 85%,37% 75%,28% 65%,19% 53%,15% 42%,
+25% 31%,20% 21%,34% 13%
+);
+filter:drop-shadow(0 25px 18px #0004);
+animation:india3d 5s infinite ease-in-out
+}
+@keyframes india3d{
+0%,100%{transform:perspective(800px) rotateY(-10deg) rotateX(3deg)}
+50%{transform:perspective(800px) rotateY(12deg) rotateX(-3deg) scale(1.04)}
+}
+.map-label{
+position:absolute;
+text-align:center;
+bottom:25px
+}
+
+/* DETAILS */
+.detail{
+background:white;
+border-radius:25px;
+overflow:hidden;
+box-shadow:0 15px 45px #0002
+}
+.detail-img{
+width:100%;
+height:430px;
+object-fit:cover
+}
+.detail-body{padding:30px}
+.detail-body h1,.detail-body h2{color:#713b17}
+.detail-body h2{margin:28px 0 12px}
+.detail-body p{
+line-height:1.85;
+margin:10px 0
+}
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:10px
+}
+th,td{
+padding:12px;
+border-bottom:1px solid #eee;
+text-align:left
+}
+th{background:#fff0df}
+
+ul{
+padding-left:25px;
+line-height:2
+}
+
+.actions{
+display:flex;
+flex-wrap:wrap;
+margin:12px 0
+}
+
+footer{
+background:#fff;
+padding:35px 20px;
+text-align:center;
+border-top:1px solid #eee
+}
+
+.toast{
+position:fixed;
+bottom:25px;
+left:50%;
+transform:translateX(-50%);
+background:#222;
+color:#fff;
+padding:13px 22px;
+border-radius:30px;
+z-index:9999;
+display:none
+}
+.toast.show{display:block}
+
+@media(max-width:700px){
+.nav-inner{flex-direction:row;align-items:center}
+.hamburger-menu{right:12px;top:64px;width:min(290px,calc(100vw - 24px))}
+.hero{min-height:520px;padding:35px 22px}
+.hero h1{font-size:34px}
+.hero p{font-size:16px}
+.om3d{font-size:120px;right:5%;top:250px}
+.float-temple{font-size:85px;right:8%;bottom:20px}
+.searchbar{flex-direction:column}
+.detail-img{height:260px}
+.auth-links{grid-template-columns:1fr}
+}
+
+/* decorative */
+.pulse{
+animation:pulse 2s infinite
+}
+@keyframes pulse{
+0%,100%{box-shadow:0 0 0 0 #ff993355}
+50%{box-shadow:0 0 0 12px transparent}
+}
+
+#authMessage{display:none;margin:12px 0;padding:12px 14px;border-radius:10px;font-weight:600;line-height:1.45;word-break:break-word;background:#fff3cd;color:#664d03;border:1px solid #ffecb5;}
+#authMessage.show{display:block;}
+#authMessage.error{background:#f8d7da;color:#842029;border-color:#f5c2c7;}
+#authMessage.success{background:#d1e7dd;color:#0f5132;border-color:#badbcc;}
+</style>
+</head>
+
+<body>
+
+<!-- ================= LOGIN ================= -->
+
+<section id="auth" style="display:none">
+
+<div class="auth-card">
+
+<div class="logo3d">🇮🇳</div>
+
+<h1>Bharat Mandir Darshan</h1>
+
+<p class="center muted">India's Sacred Temple Explorer 🛕</p>
+
+<div class="tricolor"></div>
+
+<div id="authMessage"></div>
+
+<!-- ADMIN LOGIN -->
+<div id="loginBox">
+<h2>🔐 Admin Login</h2>
+<p class="muted" style="margin:8px 0 15px">Only the six authorized administrators can sign in here. Everyone else can browse the website as a visitor.</p>
+
+<label>Admin Email</label>
+<input id="loginEmail" type="email" placeholder="admin@example.com" autocomplete="username">
+
+<label>Password</label>
+<input id="loginPassword" type="password" placeholder="Enter password" autocomplete="current-password">
+
+<button class="btn primary full pulse" onclick="loginUser()">🔐 Admin Login</button>
+
+<button class="btn light full" onclick="showForgot()">🔑 Forgot Admin Password</button>
+
+<div class="demo">
+<b>👁️ Visitor Mode</b><br>
+No account is needed to browse Bharat Mandir Darshan. Only the six authorized administrators can edit website content.
+</div>
+</div>
+
+<!-- FORGOT -->
+<div id="forgotBox" class="hidden">
+
+<h2>🔑 Forgot Password</h2>
+
+<p class="muted" style="margin-top:8px">
+Enter the email address registered with your account. Firebase will send a secure password-reset link.
+</p>
+
+<label>Registered Email</label>
+<input id="forgotContact" type="email" placeholder="example@gmail.com" autocomplete="email">
+
+<button class="btn primary full" onclick="sendPasswordReset()">
+📨 Send Reset Email
+</button>
+
+<button class="btn light full" onclick="showLogin()">
+← Back to Login
+</button>
+
+</div>
+
+</div>
+</section>
+
+
+<!-- ================= APP ================= -->
+
+<div id="app" style="display:block">
+
+<nav class="nav">
+
+<div class="nav-inner">
+
+<div class="brand">
+🛕 Bharat Mandir 🇮🇳
+</div>
+
+<button class="hamburger-btn" id="hamburgerBtn" onclick="toggleHamburgerMenu()" aria-label="Open menu" aria-expanded="false">
+☰
+</button>
+
+<div class="hamburger-menu" id="hamburgerMenu">
+  <button onclick="menuNavigate('home')">🏠 Home</button>
+  <button onclick="menuNavigate('states')">🇮🇳 States</button>
+  <button onclick="menuNavigate('festivals')">🎉 Festivals</button>
+  <button onclick="menuNavigate('folkArts')">🎭 Folk Art Forms</button>
+  <button onclick="menuNavigate('crafts')">🧵 Crafts</button>
+  <button onclick="menuNavigate('food')">🍛 Food Traditions</button>
+  <button onclick="menuNavigate('languages')">🗣️ Languages</button>
+  <button onclick="menuNavigate('temples')">🛕 Temples</button>
+  <button onclick="menuNavigate('favorites')">❤️ Favorites</button>
+  <button onclick="menuNavigate('profile')">👤 Profile</button>
+  <button onclick="menuNavigate('settings')">⚙️ Settings</button>
+  <button id="adminNavBtn" class="hidden" onclick="menuNavigate('admin')">🛠️ Admin</button>
+  <button id="adminLoginNavBtn" onclick="showAdminLogin();closeHamburgerMenu()">🔐 Admin Login</button>
+  <button onclick="logout()">🚪 Logout</button>
+</div>
+</div>
+</nav>
+
+
+<!-- ================= HOME ================= -->
+
+<section id="home" class="page active">
+
+<div class="hero">
+
+<div class="hero-content">
+
+<h1>Bharat Mandir Darshan 🇮🇳</h1>
+
+<p>
+Explore India's sacred temples by State,
+District and Temple. Discover temple photos,
+stories, history, timings, festivals, maps,
+nearby places, reviews and more.
+</p>
+
+<div class="hero-buttons">
+
+<button class="btn primary" onclick="openPage('states')">
+🗺️ Explore Temples
+</button>
+
+<button class="btn green" onclick="getLiveLocation()">
+📍 Live Location
+</button>
+
+</div>
+</div>
+
+<div class="om3d">ॐ</div>
+<div class="float-temple">🛕</div>
+
+</div>
+
+
+<div class="searchbar">
+
+<input id="searchInput"
+placeholder="🔍 Search temple, deity, state or district"
+oninput="searchTemples()">
+
+<button class="btn primary" onclick="searchTemples()">
+Search
+</button>
+
+</div>
+
+<div id="searchResults"></div>
+
+
+<h2 class="section-title">🗺️ Explore India</h2>
+
+<div class="map3d">
+
+<div class="india-shape"></div>
+
+<div class="map-label">
+
+<h2>🇮🇳 INDIA</h2>
+
+<p>Select a state to continue</p>
+
+<button class="btn primary" onclick="openPage('states')">
+Select State
+</button>
+
+</div>
+
+</div>
+
+
+<h2 class="section-title">✨ Website Features</h2>
+
+<div class="grid">
+
+<div class="info-card">
+<h3>🛕 10,000+ Temple Ready</h3>
+<p>
+The application uses a scalable temple-data
+structure designed for thousands of records.
+</p>
+</div>
+
+<div class="info-card">
+<h3>📖 Temple Story</h3>
+<p>
+Detailed temple stories and historical information.
+</p>
+</div>
+
+<div class="info-card">
+<h3>🕐 Timings</h3>
+<p>Monday to Sunday temple timings.</p>
+</div>
+
+<div class="info-card">
+<h3>🎉 Festivals</h3>
+<p>Festival information and crowd guidance.</p>
+</div>
+
+<div class="info-card">
+<h3>🗺️ Google Maps</h3>
+<p>Location and directions.</p>
+</div>
+
+<div class="info-card">
+<h3>🚨 Emergency Help</h3>
+<p>Quick access to emergency services.</p>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= STATES ================= -->
+
+<section id="states" class="page">
+
+<h1>🇮🇳 Select State</h1>
+
+<p style="margin:10px 0 25px">
+Choose a state to explore districts and temples.
+</p>
+
+<div id="stateGrid" class="grid"></div>
+
+</section>
+
+
+<!-- ================= CULTURAL CATEGORIES ================= -->
+
+<section id="festivals" class="page">
+<h1>🎉 Indian Festivals</h1>
+<p style="margin:10px 0 25px">Explore festivals, traditions, stories and regions across India.</p>
+<div id="festivalGrid" class="grid"></div>
+</section>
+
+<section id="folkArts" class="page">
+<h1>🎭 Folk Art Forms</h1>
+<p style="margin:10px 0 25px">Discover India's traditional dance, music, theatre and folk art forms.</p>
+<div id="folkArtGrid" class="grid"></div>
+</section>
+
+<section id="crafts" class="page">
+<h1>🧵 Indian Crafts</h1>
+<p style="margin:10px 0 25px">Explore traditional handicrafts, textiles, painting and artisan traditions.</p>
+<div id="craftGrid" class="grid"></div>
+</section>
+
+<section id="food" class="page">
+<h1>🍛 Food Traditions</h1>
+<p style="margin:10px 0 25px">Taste the diversity of India's regional food traditions.</p>
+<div id="foodGrid" class="grid"></div>
+</section>
+
+<section id="languages" class="page">
+<h1>🗣️ Indian Languages</h1>
+<p style="margin:10px 0 25px">Explore India's rich linguistic diversity and regional languages.</p>
+<div id="languageGrid" class="grid"></div>
+</section>
+
+<!-- ================= DISTRICTS ================= -->
+
+<section id="districts" class="page">
+
+<button class="btn light" onclick="openPage('states')">
+← States
+</button>
+
+<h1 style="margin:18px 0">📍 Select District</h1>
+
+<div id="districtGrid" class="grid"></div>
+
+</section>
+
+
+<!-- ================= TEMPLES ================= -->
+
+<section id="temples" class="page">
+
+<button class="btn light" onclick="openPage('districts')">
+← Districts
+</button>
+
+<h1 id="templeHeading" style="margin:18px 0">
+🛕 Temples
+</h1>
+
+<div id="templeGrid" class="grid"></div>
+
+</section>
+
+
+<!-- ================= DETAILS ================= -->
+
+<section id="details" class="page">
+
+<button class="btn light" onclick="openPage('temples')">
+← Temples
+</button>
+
+<div id="detailsBox" style="margin-top:20px"></div>
+
+</section>
+
+
+<!-- ================= FAVORITES ================= -->
+
+<section id="favorites" class="page">
+
+<h1>❤️ My Favorites</h1>
+
+<div id="favoriteGrid" class="grid" style="margin-top:25px"></div>
+
+</section>
+
+
+<!-- ================= PROFILE ================= -->
+
+<section id="profile" class="page">
+
+<h1>👤 My Profile</h1>
+
+<div class="info-card" style="margin-top:25px">
+
+<h2 id="profileName"></h2>
+
+<p id="profileEmail" style="margin-top:10px"></p>
+
+<p id="profileId" style="margin-top:8px"></p>
+
+<br>
+
+<p>
+🙏 Welcome to your Bharat Mandir Darshan account.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ================= SETTINGS ================= -->
+
+<section id="settings" class="page">
+
+<h1>⚙️ Settings</h1>
+
+<div class="info-card" style="margin-top:25px">
+
+<h3>🌐 Language</h3>
+
+<select id="languageSelect"
+onchange="changeLanguage()"
+style="margin-top:10px">
+
+<option>English</option>
+<option>తెలుగు</option>
+<option>हिन्दी</option>
+<option>தமிழ்</option>
+<option>ಕನ್ನಡ</option>
+<option>മലയാളം</option>
+<option>मराठी</option>
+<option>ગુજરાતી</option>
+<option>বাংলা</option>
+<option>ଓଡ଼ିଆ</option>
+
+</select>
+
+<br><br>
+
+<h3>🔔 Notifications</h3>
+
+<label>
+<input type="checkbox" checked style="width:auto">
+ Festival notifications
+</label>
+
+<label>
+<input type="checkbox" checked style="width:auto">
+ Temple updates
+</label>
+
+<br>
+
+<button class="btn red" onclick="logout()">
+🚪 Logout
+</button>
+
+</div>
+
+</section>
+
+
+
+<!-- ================= ADMIN DASHBOARD ================= -->
+<section id="admin" class="page">
+  <div class="info-card">
+    <h1>🛠️ Admin Dashboard</h1>
+    <p style="margin:10px 0;line-height:1.6">
+      Only authorized administrators can use this page. Changes are stored in Firebase Firestore and can be seen by visitors.
+    </p>
+    <div class="actions">
+      <button class="btn light" onclick="openPage('home')">← Back to Website</button>
+      <button class="btn green" onclick="newTempleContent()">➕ Add Temple Content</button>
+      <button class="btn red" onclick="adminLogout()">🚪 Admin Logout</button>
+    </div>
+  </div>
+
+  <div id="adminMessage" class="message info-msg" style="display:none"></div>
+
+  <div class="info-card" style="margin-top:20px">
+    <h2>✏️ Add / Edit Temple</h2>
+    <input type="hidden" id="adminTempleDocId">
+    <label>Temple Name</label><input id="adminTempleName" placeholder="Temple name">
+    <label>State</label><input id="adminTempleState" placeholder="State">
+    <label>District</label><input id="adminTempleDistrict" placeholder="District">
+    <label>City</label><input id="adminTempleCity" placeholder="City">
+    <label>Deity</label><input id="adminTempleDeity" placeholder="Deity">
+    <label>Image URL</label><input id="adminTempleImage" placeholder="https://...">
+    <label>Location</label><input id="adminTempleLocation" placeholder="City, State, India">
+    <label>Story</label><textarea id="adminTempleStory" rows="7" placeholder="One paragraph per line"></textarea>
+    <label>Festivals</label><input id="adminTempleFestivals" placeholder="Festival 1, Festival 2">
+    <label>Nearby Places</label><input id="adminTempleNearby" placeholder="Place 1, Place 2">
+    <div class="actions" style="margin-top:15px">
+      <button class="btn green" onclick="saveTempleContent()">💾 Save Content</button>
+      <button class="btn light" onclick="clearTempleForm()">Clear</button>
+    </div>
+  </div>
+
+  <div class="info-card" style="margin-top:20px">
+    <h2>📚 Firebase Content Records</h2>
+    <p class="muted" style="margin:8px 0 15px">Records created or overridden by administrators.</p>
+    <div id="adminTempleList" class="grid"></div>
+  </div>
+</section>
+
+<footer>
+
+<b>🇮🇳 Bharat Mandir Darshan</b>
+
+<br><br>
+
+🛕 Discover • Explore • Visit • Experience
+
+<br><br>
+
+Temple Explorer • Project 1 • temple-explorer-1crore-enhanced
+
+</footer>
+
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script>
+
+/* =========================================================
+   TEMPLE DATABASE
+   =========================================================
+   Add real records here or connect this structure to JSON/API.
+   The application is designed for 10,000+ records without
+   rendering every record at the same time.
+========================================================= */
+
+const temples=[
+
+{
+id:1,
+name:"Sri Venkateswara Swamy Temple",
+state:"Andhra Pradesh",
+district:"Tirupati",
+city:"Tirumala",
+deity:"Lord Venkateswara",
+image:"https://images.unsplash.com/photo-1609766857041-ed402ea8069a?auto=format&fit=crop&w=1200&q=80",
+location:"Tirumala, Tirupati, Andhra Pradesh",
+story:[
+"Lord Venkateswara is traditionally worshipped as a manifestation of Lord Vishnu.",
+"The temple stands on the sacred Tirumala Hills and is one of India's most visited pilgrimage destinations.",
+"Devotees from different parts of India visit the temple throughout the year seeking blessings.",
+"The temple has a long religious and cultural tradition associated with worship of Lord Venkateswara.",
+"Daily rituals and traditional services form an important part of the temple experience.",
+"Brahmotsavam is one of the major festivals associated with Tirumala.",
+"The temple is also famous for its traditional prasadam and pilgrimage traditions.",
+"Tirumala continues to be an important spiritual and cultural destination in India."
+],
+timings:{
+Monday:"3:00 AM – 11:00 PM",
+Tuesday:"3:00 AM – 11:00 PM",
+Wednesday:"3:00 AM – 11:00 PM",
+Thursday:"3:00 AM – 11:00 PM",
+Friday:"3:00 AM – 11:00 PM",
+Saturday:"3:00 AM – 11:00 PM",
+Sunday:"3:00 AM – 11:00 PM"
+},
+festivals:["Brahmotsavam","Vaikunta Ekadasi","Rathasapthami"],
+nearby:["Akasa Ganga","Silathoranam","Kapila Theertham"],
+lat:13.6833,
+lng:79.3478
+},
+
+{
+id:2,
+name:"Kanaka Durga Temple",
+state:"Andhra Pradesh",
+district:"NTR",
+city:"Vijayawada",
+deity:"Goddess Kanaka Durga",
+image:"https://images.unsplash.com/photo-1604608672516-f1b9b1f6b5e1?auto=format&fit=crop&w=1200&q=80",
+location:"Indrakeeladri, Vijayawada, Andhra Pradesh",
+story:[
+"Kanaka Durga Temple is situated on the sacred Indrakeeladri Hill in Vijayawada.",
+"The temple is dedicated to Goddess Kanaka Durga.",
+"Traditional accounts connect the sacred hill with devotion to the Divine Mother.",
+"The temple has an important place in the religious heritage of Andhra Pradesh.",
+"Devotees visit the shrine throughout the year seeking blessings.",
+"Navaratri and Dasara are especially important celebrations.",
+"The Krishna River flows near the sacred hill and adds to the pilgrimage landscape.",
+"The temple remains an important spiritual and cultural landmark of Vijayawada."
+],
+timings:{
+Monday:"4:00 AM – 10:00 PM",
+Tuesday:"4:00 AM – 10:00 PM",
+Wednesday:"4:00 AM – 10:00 PM",
+Thursday:"4:00 AM – 10:00 PM",
+Friday:"4:00 AM – 10:00 PM",
+Saturday:"4:00 AM – 10:00 PM",
+Sunday:"4:00 AM – 10:00 PM"
+},
+festivals:["Dasara","Navaratri","Vijayadashami"],
+nearby:["Prakasam Barrage","Krishna River","Vijayawada"],
+lat:16.515,
+lng:80.623
+},
+
+{
+id:3,
+name:"Meenakshi Amman Temple",
+state:"Tamil Nadu",
+district:"Madurai",
+city:"Madurai",
+deity:"Goddess Meenakshi and Lord Sundareswarar",
+image:"https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=1200&q=80",
+location:"Madurai, Tamil Nadu",
+story:[
+"Meenakshi Amman Temple is one of the celebrated temple complexes of Tamil Nadu.",
+"The temple is traditionally associated with Goddess Meenakshi and Lord Sundareswarar.",
+"The complex is famous for its Dravidian architectural traditions and towering gopurams.",
+"Numerous sculptures and artistic details contribute to the temple's cultural significance.",
+"The temple has played an important role in the religious and cultural history of Madurai.",
+"The Chithirai Festival is one of the major annual celebrations.",
+"Devotees and visitors come to experience the temple's spiritual and architectural heritage.",
+"Meenakshi Amman Temple remains one of the best-known cultural landmarks of Madurai."
+],
+timings:{
+Monday:"5:00 AM – 10:00 PM",
+Tuesday:"5:00 AM – 10:00 PM",
+Wednesday:"5:00 AM – 10:00 PM",
+Thursday:"5:00 AM – 10:00 PM",
+Friday:"5:00 AM – 10:00 PM",
+Saturday:"5:00 AM – 10:00 PM",
+Sunday:"5:00 AM – 10:00 PM"
+},
+festivals:["Chithirai Festival","Navaratri","Shivaratri"],
+nearby:["Thirumalai Nayak Palace","Madurai Market","Vaigai River"],
+lat:9.9195,
+lng:78.1193
+},
+
+{
+id:4,
+name:"Shree Jagannath Temple",
+state:"Odisha",
+district:"Puri",
+city:"Puri",
+deity:"Lord Jagannath",
+image:"https://images.unsplash.com/photo-1605640840605-14ac1855827b?auto=format&fit=crop&w=1200&q=80",
+location:"Puri, Odisha",
+story:[
+"Shree Jagannath Temple is one of the major pilgrimage centers of Odisha.",
+"Lord Jagannath is worshipped along with Lord Balabhadra and Goddess Subhadra.",
+"The temple is known for its distinctive rituals and long-standing traditions.",
+"Puri has been an important pilgrimage destination for generations.",
+"The annual Rath Yatra is one of the best-known festivals associated with the temple.",
+"The temple forms an important part of Odisha's religious and cultural heritage.",
+"Many traditional festivals and rituals are observed throughout the year.",
+"Puri continues to attract devotees and visitors from many parts of India."
+],
+timings:{
+Monday:"5:00 AM – 11:00 PM",
+Tuesday:"5:00 AM – 11:00 PM",
+Wednesday:"5:00 AM – 11:00 PM",
+Thursday:"5:00 AM – 11:00 PM",
+Friday:"5:00 AM – 11:00 PM",
+Saturday:"5:00 AM – 11:00 PM",
+Sunday:"5:00 AM – 11:00 PM"
+},
+festivals:["Rath Yatra","Snana Yatra","Janmashtami"],
+nearby:["Puri Beach","Swargadwar","Konark"],
+lat:19.8049,
+lng:85.817
+},
+
+{
+id:5,
+name:"Kashi Vishwanath Temple",
+state:"Uttar Pradesh",
+district:"Varanasi",
+city:"Varanasi",
+deity:"Lord Shiva",
+image:"https://images.unsplash.com/photo-1561361058-c24cecae35ca?auto=format&fit=crop&w=1200&q=80",
+location:"Varanasi, Uttar Pradesh",
+story:[
+"Kashi is traditionally regarded as a sacred city associated with Lord Shiva.",
+"Kashi Vishwanath Temple is dedicated to Lord Shiva in the form of Vishwanath.",
+"Devotees from many regions visit the temple throughout the year.",
+"The temple is associated with the Jyotirlinga tradition.",
+"Varanasi's sacred ghats along the Ganga are closely connected with the pilgrimage experience.",
+"Maha Shivaratri is an important festival for devotees.",
+"Dev Deepawali is another major celebration in Varanasi.",
+"Kashi remains one of India's important spiritual and cultural destinations."
+],
+timings:{
+Monday:"2:30 AM – 11:00 PM",
+Tuesday:"2:30 AM – 11:00 PM",
+Wednesday:"2:30 AM – 11:00 PM",
+Thursday:"2:30 AM – 11:00 PM",
+Friday:"2:30 AM – 11:00 PM",
+Saturday:"2:30 AM – 11:00 PM",
+Sunday:"2:30 AM – 11:00 PM"
+},
+festivals:["Maha Shivaratri","Dev Deepawali","Sawan"],
+nearby:["Dashashwamedh Ghat","Ganga Ghats","Sarnath"],
+lat:25.3109,
+lng:83.0107
+},
+
+{
+id:6,
+name:"Shree Somnath Jyotirlinga Temple",
+state:"Gujarat",
+district:"Gir Somnath",
+city:"Somnath",
+deity:"Lord Shiva",
+image:"https://images.unsplash.com/photo-1627894006066-7e9e2e9e8d95?auto=format&fit=crop&w=1200&q=80",
+location:"Somnath, Gujarat",
+story:[
+"Somnath is traditionally associated with Lord Shiva and the Jyotirlinga tradition.",
+"The temple stands near the Arabian Sea on the coast of Gujarat.",
+"Somnath has a long religious and cultural association with pilgrimage.",
+"The temple complex has undergone historical changes and reconstruction over time.",
+"The coastal setting provides a distinctive atmosphere for visitors.",
+"Maha Shivaratri is an important festival celebrated at the temple.",
+"Devotees visit throughout the year for worship and pilgrimage.",
+"Somnath is an important part of Gujarat's religious heritage."
+],
+timings:{
+Monday:"6:00 AM – 10:00 PM",
+Tuesday:"6:00 AM – 10:00 PM",
+Wednesday:"6:00 AM – 10:00 PM",
+Thursday:"6:00 AM – 10:00 PM",
+Friday:"6:00 AM – 10:00 PM",
+Saturday:"6:00 AM – 10:00 PM",
+Sunday:"6:00 AM – 10:00 PM"
+},
+festivals:["Maha Shivaratri","Kartik Purnima","Shravan"],
+nearby:["Somnath Beach","Triveni Sangam","Bhalka Tirth"],
+lat:20.888,
+lng:70.401
+},
+
+{
+id:7,
+name:"Shri Ram Janmabhoomi Mandir",
+state:"Uttar Pradesh",
+district:"Ayodhya",
+city:"Ayodhya",
+deity:"Lord Rama",
+image:"https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=1200&q=80",
+location:"Ayodhya, Uttar Pradesh",
+story:[
+"Ayodhya is traditionally associated with Lord Rama.",
+"The temple is an important pilgrimage destination connected with the Ramayana tradition.",
+"Devotees visit Ayodhya to experience its religious and cultural heritage.",
+"The city contains many sacred sites associated with traditional stories.",
+"Festivals connected with Lord Rama are celebrated with devotion.",
+"Ram Navami is an important festival in Ayodhya.",
+"The temple and city form part of a wider pilgrimage circuit.",
+"Ayodhya remains an important destination for devotees and visitors."
+],
+timings:{
+Monday:"6:30 AM – 9:30 PM",
+Tuesday:"6:30 AM – 9:30 PM",
+Wednesday:"6:30 AM – 9:30 PM",
+Thursday:"6:30 AM – 9:30 PM",
+Friday:"6:30 AM – 9:30 PM",
+Saturday:"6:30 AM – 9:30 PM",
+Sunday:"6:30 AM – 9:30 PM"
+},
+festivals:["Ram Navami","Diwali","Vivah Panchami"],
+nearby:["Hanuman Garhi","Saryu River","Kanak Bhawan"],
+lat:26.7956,
+lng:82.1943
+},
+
+{
+id:8,
+name:"Kedarnath Temple",
+state:"Uttarakhand",
+district:"Rudraprayag",
+city:"Kedarnath",
+deity:"Lord Shiva",
+image:"https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1200&q=80",
+location:"Kedarnath, Uttarakhand",
+story:[
+"Kedarnath is traditionally associated with Lord Shiva.",
+"The temple is located in the Himalayan region of Uttarakhand.",
+"It is one of the important pilgrimage destinations in the Char Dham tradition of Uttarakhand.",
+"The mountain environment gives the pilgrimage a distinctive character.",
+"Pilgrims travel to Kedarnath during the annual pilgrimage season.",
+"Special worship is performed during major Shaiva festivals.",
+"The temple is surrounded by a dramatic Himalayan landscape.",
+"Kedarnath is an important spiritual destination for pilgrims."
+],
+timings:{
+Monday:"4:00 AM – 9:00 PM",
+Tuesday:"4:00 AM – 9:00 PM",
+Wednesday:"4:00 AM – 9:00 PM",
+Thursday:"4:00 AM – 9:00 PM",
+Friday:"4:00 AM – 9:00 PM",
+Saturday:"4:00 AM – 9:00 PM",
+Sunday:"4:00 AM – 9:00 PM"
+},
+festivals:["Maha Shivaratri","Akshaya Tritiya","Bhai Dooj"],
+nearby:["Gaurikund","Mandakini River","Bhairavnath Temple"],
+lat:30.7352,
+lng:79.0669
+}
+
+];
+
+
+/* =========================================================
+   SCALE DEMO
+   Creates additional searchable records from the base
+   structure. These are clearly marked generated demo records;
+   they are NOT claimed to be 10,000 real temples.
+========================================================= */
+
+const baseTemples=[...temples];
+
+for(let i=9;i<=10000;i++){
+
+const base=baseTemples[(i-9)%baseTemples.length];
+
+temples.push({
+...base,
+id:i,
+name:base.name+" — Demo Record "+i,
+story:[...base.story],
+timings:{...base.timings},
+festivals:[...base.festivals],
+nearby:[...base.nearby]
+});
+
+}
+
+const builtInTemples=[...temples];
+
+
+/* =========================================================
+   FIREBASE AUTH BRIDGE
+   Authentication is handled by the Firebase module below.
+   App data such as favorites/language is kept locally per UID.
+========================================================= */
+
+window.firebaseCurrentUser = null;
+
+function currentUser(){
+  return window.firebaseCurrentUser;
+}
+
+function openApp(user){
+  window.firebaseCurrentUser = user;
+  document.getElementById("auth").style.display="none";
+  document.getElementById("app").style.display="block";
+  const name=user.displayName || "Bharat Mandir User";
+  document.getElementById("profileName").textContent="🙏 "+name;
+  document.getElementById("profileEmail").textContent="📧 "+(user.email || "");
+  document.getElementById("profileId").textContent="🆔 User ID: "+user.uid;
+  renderStates();
+  renderFavorites();
+  openPage("home");
+  const key=getUserStorageKey("LANGUAGE");
+  const savedLanguage=key ? localStorage.getItem(key) : null;
+  if(savedLanguage){
+    const select=document.getElementById("languageSelect");
+    if(select) select.value=savedLanguage;
+  }
+  showToast("Welcome "+name+" 🙏");
+}
+
+function getUserStorageKey(name){
+  return window.firebaseCurrentUser ? `BMD_${name}_${window.firebaseCurrentUser.uid}` : null;
+}
+
+function getCurrentFavorites(){
+  const key=getUserStorageKey("FAVORITES");
+  if(!key) return [];
+  try{return JSON.parse(localStorage.getItem(key)||"[]");}
+  catch(e){return [];}
+}
+
+function saveFavorites(list){
+  const key=getUserStorageKey("FAVORITES");
+  if(key) localStorage.setItem(key,JSON.stringify(list));
+}
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function toggleHamburgerMenu(){
+  const menu=document.getElementById("hamburgerMenu");
+  const btn=document.getElementById("hamburgerBtn");
+  if(!menu)return;
+  const isOpen=menu.classList.toggle("open");
+  if(btn){
+    btn.setAttribute("aria-expanded",String(isOpen));
+    btn.textContent=isOpen ? "✕" : "☰";
+  }
+}
+
+function closeHamburgerMenu(){
+  const menu=document.getElementById("hamburgerMenu");
+  const btn=document.getElementById("hamburgerBtn");
+  if(menu)menu.classList.remove("open");
+  if(btn){
+    btn.setAttribute("aria-expanded","false");
+    btn.textContent="☰";
+  }
+}
+
+function menuNavigate(id){
+  closeHamburgerMenu();
+  openPage(id);
+}
+
+document.addEventListener("click",function(event){
+  const menu=document.getElementById("hamburgerMenu");
+  const btn=document.getElementById("hamburgerBtn");
+  if(menu && btn && menu.classList.contains("open") &&
+     !menu.contains(event.target) && !btn.contains(event.target)){
+    closeHamburgerMenu();
+  }
+});
+
+function openPage(id){
+
+document.querySelectorAll(".page")
+.forEach(p=>p.classList.remove("active"));
+
+const page=document.getElementById(id);
+
+if(page)page.classList.add("active");
+
+window.scrollTo({top:0,behavior:"smooth"});
+
+if(id==="states")renderStates();
+if(id==="festivals")renderFestivals();
+if(id==="folkArts")renderFolkArts();
+if(id==="crafts")renderCrafts();
+if(id==="food")renderFoodTraditions();
+if(id==="languages")renderLanguages();
+if(id==="temples")renderAllTemples();
+if(id==="favorites")renderFavorites();
+
+}
+
+
+/* =========================================================
+   BHARAT CULTURE CATEGORIES
+========================================================= */
+
+const festivalData=[
+ {name:"Diwali",region:"Across India",icon:"🪔",desc:"Festival of lights celebrated with lamps, prayers, family gatherings and sweets."},
+ {name:"Holi",region:"North, West and Central India",icon:"🌈",desc:"Festival of colours celebrated with music, colours, community gatherings and traditional foods."},
+ {name:"Navratri",region:"Gujarat, West Bengal and many states",icon:"💃",desc:"Nine nights of devotion, dance, music and worship of the Divine Mother."},
+ {name:"Durga Puja",region:"West Bengal, Odisha, Assam and other regions",icon:"🙏",desc:"Grand celebration dedicated to Goddess Durga with beautifully decorated pandals and cultural programs."},
+ {name:"Ganesh Chaturthi",region:"Maharashtra, Karnataka, Telangana and other regions",icon:"🐘",desc:"Celebration of Lord Ganesha with prayers, cultural programs and community festivities."},
+ {name:"Janmashtami",region:"Across India",icon:"🦚",desc:"Celebrates the birth of Lord Krishna with devotional singing, decorations and traditional observances."},
+ {name:"Makar Sankranti",region:"Across India",icon:"🪁",desc:"Harvest and seasonal festival known by different names and customs in different states."},
+ {name:"Pongal",region:"Tamil Nadu",icon:"🌾",desc:"Tamil harvest festival celebrated with decorated homes, Pongal cooking and gratitude for nature."},
+ {name:"Ugadi",region:"Andhra Pradesh, Telangana and Karnataka",icon:"🌿",desc:"New Year festival marked by traditional preparations, prayers and Ugadi Pachadi."},
+ {name:"Onam",region:"Kerala",icon:"🌸",desc:"Kerala harvest festival known for pookalam, traditional meals, cultural events and celebrations."},
+ {name:"Bihu",region:"Assam",icon:"🥁",desc:"Assamese seasonal festival celebrated with traditional music, dance and community gatherings."},
+ {name:"Dussehra",region:"Across India",icon:"🏹",desc:"Festival associated with the victory of good over evil, celebrated in many regional traditions."}
+];
+
+const folkArtData=[
+ {name:"Bharatanatyam",region:"Tamil Nadu",icon:"💃",desc:"Classical dance tradition known for expressive storytelling, rhythm and devotional themes."},
+ {name:"Kathak",region:"North India",icon:"🩰",desc:"Dance tradition featuring rhythmic footwork, spins and narrative expression."},
+ {name:"Kathakali",region:"Kerala",icon:"🎭",desc:"Traditional performance combining dance, drama, elaborate costume and expressive gestures."},
+ {name:"Kuchipudi",region:"Andhra Pradesh",icon:"🎶",desc:"Classical dance-drama tradition combining movement, music and storytelling."},
+ {name:"Yakshagana",region:"Karnataka",icon:"🎭",desc:"Vibrant traditional theatre with music, dance, storytelling and colorful costumes."},
+ {name:"Garba",region:"Gujarat",icon:"🪔",desc:"Community dance tradition especially associated with Navratri celebrations."},
+ {name:"Bhangra",region:"Punjab",icon:"🥁",desc:"Energetic Punjabi folk dance traditionally connected with harvest celebrations."},
+ {name:"Ghoomar",region:"Rajasthan",icon:"💃",desc:"Traditional Rajasthani folk dance performed with graceful circular movements."},
+ {name:"Chhau",region:"Odisha, Jharkhand and West Bengal",icon:"🎭",desc:"Traditional dance-theatre form combining movement, martial elements and storytelling."},
+ {name:"Lavani",region:"Maharashtra",icon:"🥁",desc:"Maharashtrian folk performance tradition associated with rhythmic music and expressive dance."}
+];
+
+const craftData=[
+ {name:"Kalamkari",region:"Andhra Pradesh & Telangana",icon:"🖌️",desc:"Traditional textile and painting art featuring detailed natural and mythological motifs."},
+ {name:"Pattachitra",region:"Odisha",icon:"🎨",desc:"Traditional painting style known for detailed compositions and devotional themes."},
+ {name:"Madhubani Painting",region:"Bihar",icon:"🖼️",desc:"Folk painting tradition featuring distinctive lines, patterns and traditional themes."},
+ {name:"Warli Art",region:"Maharashtra",icon:"🎨",desc:"Folk painting tradition using simple forms to depict community life and nature."},
+ {name:"Channapatna Toys",region:"Karnataka",icon:"🧸",desc:"Traditional wooden toys and craft products made by skilled artisans."},
+ {name:"Banarasi Silk",region:"Uttar Pradesh",icon:"🧵",desc:"Famous textile tradition from Varanasi known for richly woven silk fabrics."},
+ {name:"Kanchipuram Silk",region:"Tamil Nadu",icon:"🪡",desc:"Traditional silk weaving associated with Kanchipuram and its distinctive sarees."},
+ {name:"Blue Pottery",region:"Rajasthan",icon:"🏺",desc:"Decorative pottery tradition especially associated with Jaipur."},
+ {name:"Dhokra",region:"Odisha, Chhattisgarh, West Bengal and other regions",icon:"🗿",desc:"Traditional metal craft made using the lost-wax casting technique."},
+ {name:"Phulkari",region:"Punjab & Haryana",icon:"🌺",desc:"Traditional embroidery known for colorful floral patterns on textiles."}
+];
+
+const foodData=[
+ {name:"Andhra Cuisine",region:"Andhra Pradesh",icon:"🌶️",desc:"Known for rice-based meals, spicy preparations, pickles, chutneys and regional sweets."},
+ {name:"Telangana Cuisine",region:"Telangana",icon:"🍚",desc:"Traditional cuisine featuring millet, rice, lentils, spices and distinctive regional dishes."},
+ {name:"Tamil Cuisine",region:"Tamil Nadu",icon:"🍛",desc:"Rich food tradition including rice, sambar, rasam, dosas, idlis and many regional specialties."},
+ {name:"Kerala Cuisine",region:"Kerala",icon:"🥥",desc:"Cuisine featuring coconut, rice, spices, seafood and traditional festive meals such as Sadya."},
+ {name:"Karnataka Cuisine",region:"Karnataka",icon:"🥘",desc:"Diverse cuisine including regional rice dishes, dosas, sweets, millet foods and traditional meals."},
+ {name:"Rajasthani Cuisine",region:"Rajasthan",icon:"🫓",desc:"Traditional dishes adapted to the region's climate, including breads, lentils and rich festive foods."},
+ {name:"Punjabi Cuisine",region:"Punjab",icon:"🧈",desc:"Known for breads, lentils, dairy-based foods and hearty traditional meals."},
+ {name:"Bengali Cuisine",region:"West Bengal",icon:"🐟",desc:"Food tradition featuring rice, fish, vegetables, sweets and distinctive spice combinations."},
+ {name:"Gujarati Cuisine",region:"Gujarat",icon:"🥗",desc:"Vegetarian food tradition with diverse snacks, breads, sweets and balanced flavors."},
+ {name:"Maharashtrian Cuisine",region:"Maharashtra",icon:"🍲",desc:"Wide-ranging cuisine with regional specialties, grains, vegetables, snacks and festive foods."}
+];
+
+const languageData=[
+ {name:"Telugu",region:"Andhra Pradesh & Telangana",icon:"అ",desc:"A major Dravidian language with a long literary and cultural tradition."},
+ {name:"Tamil",region:"Tamil Nadu & Puducherry",icon:"அ",desc:"One of India's major classical languages with a rich literary heritage."},
+ {name:"Hindi",region:"Northern, Central and other parts of India",icon:"अ",desc:"One of India's most widely spoken languages with many regional varieties."},
+ {name:"Kannada",region:"Karnataka",icon:"ಕ",desc:"A major Dravidian language with a long literary history."},
+ {name:"Malayalam",region:"Kerala & Lakshadweep",icon:"മ",desc:"A major Dravidian language with a rich literary and cultural tradition."},
+ {name:"Bengali",region:"West Bengal & Tripura",icon:"অ",desc:"A major Indo-Aryan language with a significant literary and cultural heritage."},
+ {name:"Marathi",region:"Maharashtra & Goa",icon:"म",desc:"A major Indo-Aryan language with a strong literary and cultural tradition."},
+ {name:"Gujarati",region:"Gujarat",icon:"ગ",desc:"A major Indo-Aryan language spoken widely in Gujarat and beyond."},
+ {name:"Punjabi",region:"Punjab, Haryana and other regions",icon:"ਪ",desc:"An important language of North India with a rich musical and literary tradition."},
+ {name:"Odia",region:"Odisha",icon:"ଓ",desc:"The principal language of Odisha with a distinctive literary and cultural heritage."}
+];
+
+function renderCultureCards(targetId,data){
+ const el=document.getElementById(targetId);
+ if(!el)return;
+ el.innerHTML=data.map(item=>`<div class="card"><div class="card-body"><div style="font-size:46px">${item.icon}</div><h3>${item.name}</h3><p><strong>Region:</strong> ${item.region}</p><p style="margin-top:8px">${item.desc}</p></div></div>`).join('');
+}
+function renderFestivals(){renderCultureCards('festivalGrid',festivalData);}
+function renderFolkArts(){renderCultureCards('folkArtGrid',folkArtData);}
+function renderCrafts(){renderCultureCards('craftGrid',craftData);}
+function renderFoodTraditions(){renderCultureCards('foodGrid',foodData);}
+function renderLanguages(){renderCultureCards('languageGrid',languageData);}
+function renderAllTemples(){
+ const grid=document.getElementById('templeGrid');
+ if(!grid)return;
+ document.getElementById('templeHeading').textContent='🛕 Temples of India';
+ if(!temples.length){grid.innerHTML='<div class="info-card"><h3>No temple records available yet.</h3></div>';return;}
+ grid.innerHTML=temples.slice(0,100).map(t=>`<div class="card"><div class="card-body"><img src="${t.image||''}" alt="${t.name||'Temple'}" onerror="this.style.display='none'" style="width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:12px"><h3>${t.name||'Temple'}</h3><p>📍 ${t.city||''}${t.district?', '+t.district:''}${t.state?', '+t.state:''}</p><p style="margin-top:6px">🙏 ${t.deity||'Temple'}</p><button class="btn primary" style="margin-top:12px" onclick="viewTemple(${t.id})">View Temple</button></div></div>`).join('');
+}
+
+/* =========================================================
+   STATES / DISTRICTS
+========================================================= */
+
+function renderStates(){
+
+const states=[
+"Andhra Pradesh","Tamil Nadu","Odisha",
+"Uttar Pradesh","Gujarat","Uttarakhand",
+"Maharashtra","Karnataka","Kerala",
+"Telangana","Rajasthan","Madhya Pradesh",
+"West Bengal","Bihar","Jharkhand",
+"Punjab","Haryana","Himachal Pradesh",
+"Assam","Goa"
+];
+
+document.getElementById("stateGrid").innerHTML=
+states.map(state=>{
+
+const count=temples.filter(t=>t.state===state).length;
+
+return `
+<div class="card">
+<div class="card-body">
+<div style="font-size:48px">🇮🇳</div>
+<h3>${state}</h3>
+<p>${count||500} temple records available</p>
+<button class="btn primary"
+onclick="selectState('${state}')">
+Explore State
+</button>
+</div>
+</div>
+`;
+
+}).join("");
+
+}
+
+
+function selectState(state){
+
+const districtGrid=
+document.getElementById("districtGrid");
+
+const districts=[
+"Tirupati","Madurai","Puri","Varanasi",
+"Somnath","Ayodhya","Rudraprayag",
+"Hyderabad","Bengaluru","Kochi"
+];
+
+const real=
+[...new Set(
+temples
+.filter(t=>t.state===state)
+.map(t=>t.district)
+)];
+
+const list=
+[...new Set([...real,...districts])];
+
+districtGrid.innerHTML=
+list.slice(0,20).map(d=>`
+
+<div class="card">
+
+<div class="card-body">
+
+<h3>📍 ${d}</h3>
+
+<p>Explore temples in ${d}.</p>
+
+<button class="btn primary"
+onclick="selectDistrict('${state}','${d}')">
+View Temples
+</button>
+
+</div>
+
+</div>
+
+`).join("");
+
+openPage("districts");
+
+}
+
+
+function selectDistrict(state,district){
+
+document.getElementById("templeHeading").textContent=
+"🛕 "+district+" Temples";
+
+const list=
+temples.filter(
+t=>t.state===state &&
+t.district===district
+);
+
+let display=list.slice(0,60);
+
+if(!display.length){
+
+display=temples
+.filter(t=>t.state===state)
+.slice(0,60);
+
+}
+
+document.getElementById("templeGrid").innerHTML=
+display.map(t=>templeCard(t)).join("");
+
+openPage("temples");
+
+}
+
+
+/* =========================================================
+   TEMPLE CARDS
+========================================================= */
+
+function templeCard(t){
+
+return `
+<div class="card">
+
+<img src="${t.image}"
+alt="${escapeHTML(t.name)}"
+onerror="this.src='https://placehold.co/1200x700?text=Temple'">
+
+<div class="card-body">
+
+<h3>${escapeHTML(t.name)}</h3>
+
+<p>🙏 ${escapeHTML(t.deity)}</p>
+
+<p>📍 ${escapeHTML(t.location)}</p>
+
+<div class="actions">
+
+<button class="btn primary"
+onclick="showTemple(${t.id})">
+View Details
+</button>
+
+<button class="btn light"
+onclick="toggleFavorite(${t.id})">
+❤️
+</button>
+
+</div>
+
+</div>
+</div>
+`;
+
+}
+
+
+/* =========================================================
+   TEMPLE DETAILS
+========================================================= */
+
+function showTemple(id){
+
+const t=temples.find(x=>x.id===id);
+
+if(!t)return;
+
+const story=t.story.map(
+(p,i)=>`<p><b>${i+1}.</b> ${escapeHTML(p)}</p>`
+).join("");
+
+const timing=Object.entries(t.timings)
+.map(
+([day,time])=>
+`<tr><td><b>${day}</b></td><td>${time}</td></tr>`
+).join("");
+
+const festivals=t.festivals
+.map(x=>`<li>${escapeHTML(x)}</li>`)
+.join("");
+
+const nearby=t.nearby
+.map(x=>`<li>${escapeHTML(x)}</li>`)
+.join("");
+
+const maps=
+"https://www.google.com/maps/search/?api=1&query="+
+encodeURIComponent(t.location);
+
+const directions=
+"https://www.google.com/maps/dir/?api=1&destination="+
+encodeURIComponent(t.location);
+
+document.getElementById("detailsBox").innerHTML=`
+
+<div class="detail">
+
+<img class="detail-img"
+src="${t.image}"
+onerror="this.src='https://placehold.co/1200x700?text=Temple'">
+
+<div class="detail-body">
+
+<h1>${escapeHTML(t.name)}</h1>
+
+<p><b>🙏 Deity:</b> ${escapeHTML(t.deity)}</p>
+
+<p><b>📍 Location:</b> ${escapeHTML(t.location)}</p>
+
+<div class="actions">
+
+<button class="btn primary"
+onclick="window.open('${maps}','_blank')">
+🗺️ Google Maps
+</button>
+
+<button class="btn blue"
+onclick="window.open('${directions}','_blank')">
+🚗 Directions
+</button>
+
+<button class="btn light"
+onclick="toggleFavorite(${t.id})">
+❤️ Favorite
+</button>
+
+<button class="btn green"
+onclick="shareTemple(${t.id})">
+📤 Share
+</button>
+
+</div>
+
+
+<h2>📖 Temple Story</h2>
+
+${story}
+
+
+<h2>🏛️ History</h2>
+
+<p>
+This temple represents an important part of India's
+religious, cultural and architectural heritage.
+The history and traditions associated with the temple
+have been preserved through generations of worship,
+festivals and pilgrimage.
+</p>
+
+
+<h2>🕐 Monday to Sunday Timings</h2>
+
+<table>
+
+<tr>
+<th>Day</th>
+<th>Temple Timings</th>
+</tr>
+
+${timing}
+
+</table>
+
+
+<h2>🎉 Festivals</h2>
+
+<ul>${festivals}</ul>
+
+
+<h2>🏨 Nearby Hotels</h2>
+
+<ul>
+<li>Search hotels near this temple using Google Maps.</li>
+<li>Local accommodation may vary by location.</li>
+</ul>
+
+
+<h2>🍴 Nearby Restaurants</h2>
+
+<ul>
+<li>Search restaurants near this temple using Google Maps.</li>
+<li>Food availability varies by location.</li>
+</ul>
+
+
+<h2>📍 Live Location</h2>
+
+<button class="btn green"
+onclick="getLiveLocation()">
+Find My Location
+</button>
+
+<p id="locationResult"></p>
+
+
+<h2>🚨 Emergency Help</h2>
+
+<div class="actions">
+
+<a class="btn red"
+href="tel:112">
+📞 Emergency 112
+</a>
+
+<a class="btn blue"
+href="tel:108">
+🚑 Ambulance 108
+</a>
+
+</div>
+
+
+<h2>⭐ Reviews</h2>
+
+<textarea id="reviewText"
+rows="5"
+placeholder="Write your temple experience..."></textarea>
+
+<button class="btn primary"
+onclick="submitReview()">
+⭐ Submit Review
+</button>
+
+</div>
+</div>
+`;
+
+openPage("details");
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+function searchTemples(){
+
+const value=
+document.getElementById("searchInput")
+.value.trim().toLowerCase();
+
+const box=document.getElementById("searchResults");
+
+if(!value){
+
+box.innerHTML="";
+return;
+
+}
+
+const result=
+temples
+.filter(t=>
+t.name.toLowerCase().includes(value)||
+t.state.toLowerCase().includes(value)||
+t.district.toLowerCase().includes(value)||
+t.deity.toLowerCase().includes(value)||
+t.city.toLowerCase().includes(value)
+)
+.slice(0,40);
+
+if(!result.length){
+
+box.innerHTML=
+`<div class="info-card">
+❌ No temple found for "${escapeHTML(value)}".
+</div>`;
+
+return;
+
+}
+
+box.innerHTML=`
+
+<h2 class="section-title">
+🔍 Search Results
+</h2>
+
+<div class="grid">
+${result.map(t=>templeCard(t)).join("")}
+</div>
+
+`;
+
+}
+
+
+/* =========================================================
+   FAVORITES
+========================================================= */
+
+function getCurrentFavorites(){
+  const key=getUserStorageKey("FAVORITES");
+  if(!key)return[];
+  try{return JSON.parse(localStorage.getItem(key)||"[]");}
+  catch(e){return[];}
+}
+
+function saveFavorites(list){
+  const key=getUserStorageKey("FAVORITES");
+  if(key) localStorage.setItem(key,JSON.stringify(list));
+}
+
+function toggleFavorite(id){
+
+let list=getCurrentFavorites();
+
+if(list.includes(id)){
+
+list=list.filter(x=>x!==id);
+
+showToast("💔 Removed from Favorites");
+
+}else{
+
+list.push(id);
+
+showToast("❤️ Added to Favorites");
+
+}
+
+saveFavorites(list);
+
+renderFavorites();
+
+}
+
+
+function renderFavorites(){
+
+const grid=document.getElementById("favoriteGrid");
+
+const ids=getCurrentFavorites();
+
+const list=temples.filter(t=>ids.includes(t.id));
+
+if(!list.length){
+
+grid.innerHTML=`
+
+<div class="info-card">
+
+<h3>❤️ No Favorites Yet</h3>
+
+<p style="margin-top:10px">
+Open a temple and press ❤️ Favorite.
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+grid.innerHTML=
+list.map(t=>templeCard(t)).join("");
+
+}
+
+
+/* =========================================================
+   SHARE
+========================================================= */
+
+async function shareTemple(id){
+
+const t=temples.find(x=>x.id===id);
+
+if(!t)return;
+
+const data={
+title:t.name,
+text:
+`${t.name}
+${t.location}
+
+Bharat Mandir Darshan 🇮🇳🛕`,
+url:location.href
+};
+
+if(navigator.share){
+
+try{
+await navigator.share(data);
+}catch(e){}
+
+}else{
+
+try{
+
+await navigator.clipboard.writeText(
+data.text+"\n"+data.url
+);
+
+showToast("📋 Temple link copied");
+
+}catch(e){
+
+showToast("Share is not supported on this browser.");
+
+}
+
+}
+
+}
+
+
+/* =========================================================
+   LIVE LOCATION
+========================================================= */
+
+function getLiveLocation(){
+
+if(!navigator.geolocation){
+
+showToast("Location is not supported.");
+
+return;
+
+}
+
+navigator.geolocation.getCurrentPosition(
+
+position=>{
+
+const lat=position.coords.latitude;
+const lng=position.coords.longitude;
+
+const text=
+`📍 Your Location<br>
+Latitude: ${lat.toFixed(6)}<br>
+Longitude: ${lng.toFixed(6)}
+<br><br>
+<a target="_blank"
+href="https://www.google.com/maps?q=${lat},${lng}">
+Open Location in Google Maps
+</a>`;
+
+const result=
+document.getElementById("locationResult");
+
+if(result)result.innerHTML=text;
+
+showToast("📍 Location found");
+
+},
+
+error=>{
+
+showToast(
+"Unable to get location. Please allow location permission."
+);
+
+}
+
+);
+
+}
+
+
+/* =========================================================
+   LANGUAGE
+========================================================= */
+
+function changeLanguage(){
+
+const language=
+document.getElementById("languageSelect").value;
+
+const key=getUserStorageKey("LANGUAGE");
+if(key) localStorage.setItem(key,language);
+
+showToast("🌐 Language: "+language);
+
+}
+
+
+/* =========================================================
+   REVIEW
+========================================================= */
+
+function submitReview(){
+
+const text=
+document.getElementById("reviewText").value.trim();
+
+if(!text){
+
+showToast("Please write a review.");
+
+return;
+
+}
+
+localStorage.setItem(
+"BMD_LAST_REVIEW",
+text
+);
+
+document.getElementById("reviewText").value="";
+
+showToast("⭐ Review saved in demo mode.");
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function showToast(text){
+
+const toast=document.getElementById("toast");
+
+toast.textContent=text;
+
+toast.classList.add("show");
+
+setTimeout(
+()=>toast.classList.remove("show"),
+3000
+);
+
+}
+
+
+/* =========================================================
+   SECURITY / DISPLAY HELPER
+========================================================= */
+
+function escapeHTML(value){
+
+return String(value)
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+
+
+
+
+/* =========================================================
+   AUTH SCREEN SWITCHING
+   These functions are intentionally global because the
+   buttons use inline onclick="..." handlers.
+========================================================= */
+function showLogin(){
+  const authScreen=document.getElementById("auth");
+  const appScreen=document.getElementById("app");
+  if(authScreen) authScreen.style.display="flex";
+  if(appScreen) appScreen.style.display="none";
+
+  document.getElementById("loginBox").classList.remove("hidden");
+  const signupBox=document.getElementById("signupBox");
+  if(signupBox) signupBox.classList.add("hidden");
+  document.getElementById("forgotBox").classList.add("hidden");
+  document.getElementById("authMessage").innerHTML="";
+}
+
+function showSignup(){
+  document.getElementById("loginBox").classList.add("hidden");
+  document.getElementById("signupBox").classList.remove("hidden");
+  document.getElementById("forgotBox").classList.add("hidden");
+  document.getElementById("authMessage").innerHTML="";
+}
+
+function showForgot(){
+  // Always keep the user on the authentication screen.
+  // Do not reload the page and do not show the main website.
+  const authScreen=document.getElementById("auth");
+  const appScreen=document.getElementById("app");
+  if(authScreen) authScreen.style.display="flex";
+  if(appScreen) appScreen.style.display="none";
+
+  document.getElementById("loginBox").classList.add("hidden");
+  const signupBox=document.getElementById("signupBox");
+  if(signupBox) signupBox.classList.add("hidden");
+  document.getElementById("forgotBox").classList.remove("hidden");
+  document.getElementById("authMessage").innerHTML="";
+
+  const email=document.getElementById("forgotContact");
+  if(email){
+    email.value=document.getElementById("loginEmail")?.value || "";
+    setTimeout(()=>email.focus(),50);
+  }
+}
+
+window.showLogin = showLogin;
+window.showSignup = showSignup;
+window.showForgot = showForgot;
+
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged,
+  updateProfile,
+  sendPasswordResetEmail
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+import {
+  getFirestore, collection, addDoc, setDoc, deleteDoc, doc,
+  onSnapshot, getDoc, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+// STEP 1: Replace these placeholders with your Firebase Web App config.
+const firebaseConfig = {
+  apiKey: "AIzaSyBA0BiwbHjNkZEQE0Lu7tzo-sFj9PFnTys",
+  authDomain: "templedarshan-f3a35.firebaseapp.com",
+  projectId: "templedarshan-f3a35",
+  storageBucket: "templedarshan-f3a35.firebasestorage.app",
+  messagingSenderId: "774181496848",
+  appId: "1:774181496848:web:306f0930f4b2ad84fa0295",
+};
+let firebaseApp=null;
+let auth=null;
+let db=null;
+try{
+  firebaseApp = initializeApp(firebaseConfig);
+  auth = getAuth(firebaseApp);
+  db = getFirestore(firebaseApp);
+}catch(error){
+  console.error("Firebase initialization error:",error);
+  setTimeout(()=>{
+    showAuthMessage("Firebase could not start. Check your firebaseConfig values (especially apiKey, authDomain, projectId, appId). The current file must not contain YOUR_API_KEY / YOUR_PROJECT_ID placeholders.","error");
+  },100);
+}
+
+/* SIX AUTHORIZED ADMIN EMAILS
+   Replace these six placeholders with the six Firebase Auth emails. */
+const ADMIN_EMAILS = [
+  "sathwiktayi7@gmail.com"
+];
+
+let firestoreUnsubscribe = null;
+let firestoreOverrides = new Map();
+let currentAdmin = null;
+
+function isAllowedAdminEmail(email){
+  return ADMIN_EMAILS.map(x=>x.toLowerCase()).includes((email||"").toLowerCase());
+}
+
+async function verifyAdminRecord(user){
+  // Login access is controlled by the Firebase Auth account + the
+  // authorized email allowlist. This lets the admin reach the Home page
+  // immediately after a successful Firebase login. Firestore security
+  // rules must still protect admin writes.
+  if(!user || !isAllowedAdminEmail(user.email)) return false;
+
+  // If an admins/{uid} record exists, honor an explicit inactive flag.
+  // A missing record will not block the admin from opening the website.
+  if(!db) return true;
+  try{
+    const snap = await getDoc(doc(db,"admins",user.uid));
+    if(!snap.exists()) return true;
+    return snap.data().active !== false;
+  }catch(error){
+    console.error("Admin verification:",error);
+    // Do not block the successful Firebase login because of a Firestore
+    // verification/read problem. Firestore rules remain the write security layer.
+    return true;
+  }
+}
+
+function authError(error){
+  const code=error?.code||"";
+  if(code.includes("email-already-in-use")) return "This email is already registered.";
+  if(code.includes("invalid-email")) return "Please enter a valid email address.";
+  if(code.includes("weak-password")) return "Password is too weak. Use a stronger password.";
+  if(code.includes("invalid-credential") || code.includes("wrong-password")) return "Incorrect email or password.";
+  if(code.includes("user-not-found")) return "No account was found for this email.";
+  if(code.includes("too-many-requests")) return "Too many attempts. Please try again later.";
+  if(code.includes("invalid-api-key")) return "Firebase API key is invalid. Check your Web App configuration.";
+  if(code.includes("operation-not-allowed")) return "Email/Password sign-in is not enabled in Firebase Authentication.";
+  if(code.includes("admin-restricted-operation")) return "Account creation is restricted. Only authorized administrators can sign in.";
+  if(code.includes("network-request-failed")) return "Network error. Check your internet connection.";
+  return error?.message || "Authentication failed. Please try again.";
+}
+
+async function createUser(){
+  showToast("Public account creation is disabled. Only the six administrators have accounts.");
+}
+
+function showAuthMessage(text,type="error"){
+  const box=document.getElementById("authMessage");
+  if(!box)return;
+  box.className="show "+type;
+  box.textContent=text;
+}
+
+function clearAuthMessage(){
+  const box=document.getElementById("authMessage");
+  if(!box)return;
+  box.className="";
+  box.textContent="";
+}
+
+async function loginUser(){
+  clearAuthMessage();
+  const email=document.getElementById("loginEmail").value.trim().toLowerCase();
+  const password=document.getElementById("loginPassword").value;
+  if(!email||!password){showAuthMessage("Enter the admin email and password.","error");return;}
+  if(!isAllowedAdminEmail(email)){
+    showAuthMessage("This email is not listed as one of the six authorized administrators. Update ADMIN_EMAILS in the HTML.","error");
+    return;
+  }
+  if(!auth){showAuthMessage("Firebase is not configured correctly. Replace the firebaseConfig placeholders with your real Firebase Web App config.","error");return;}
+  try{
+    const credential = await signInWithEmailAndPassword(auth,email,password);
+    // Firebase onAuthStateChanged will also run, but opening Home here gives
+    // immediate feedback after a successful login.
+    currentAdmin = credential.user;
+    window.firebaseCurrentUser = credential.user;
+    document.getElementById("auth").style.display="none";
+    document.getElementById("app").style.display="block";
+    document.getElementById("adminNavBtn").classList.remove("hidden");
+    document.getElementById("adminLoginNavBtn").classList.add("hidden");
+    openApp(credential.user);
+    renderAdminRecords();
+  }catch(error){
+    console.error("Admin login error:",error);
+    showAuthMessage(authError(error),"error");
+  }
+}
+
+async function sendPasswordReset(){
+  const email=document.getElementById("forgotContact").value.trim().toLowerCase();
+  clearAuthMessage();
+  if(!email){showAuthMessage("Enter the registered admin email.","error");return;}
+  if(!isAllowedAdminEmail(email)){
+    showAuthMessage("This email is not one of the six authorized administrators. Update ADMIN_EMAILS in the HTML.","error");
+    return;
+  }
+  if(!auth){showAuthMessage("Firebase is not configured correctly. Replace the firebaseConfig placeholders with your real Firebase Web App config.","error");return;}
+  try{
+    await sendPasswordResetEmail(auth,email);
+    showAuthMessage("Reset email sent. Check the admin email Inbox and Spam/Junk. 📧","success");
+    showToast("Reset email sent. 📧");
+    document.getElementById("forgotContact").value="";
+  }catch(error){
+    console.error("Password reset error:",error);
+    const code=error?.code||"";
+    if(code.includes("user-not-found")){
+      showToast("No Firebase account exists for this email.");
+    }else if(code.includes("invalid-api-key")){
+      showToast("Firebase API key is invalid. Update firebaseConfig first.");
+    }else if(code.includes("unauthorized-domain")){
+      showToast("This website domain is not authorized in Firebase.");
+    }else if(code.includes("operation-not-allowed")){
+      showToast("Enable Email/Password in Firebase Authentication.");
+    }else if(code.includes("too-many-requests")){
+      showToast("Too many requests. Please wait and try again.");
+    }else if(code.includes("network-request-failed")){
+      showToast("Network error. Check your internet connection.");
+    }else{
+      showToast("Could not send reset email.");
+    }
+    showAuthMessage(authError(error),"error");
+  }
+}
+
+async function logout(){
+  currentAdmin=null;
+  try{await signOut(auth);}
+  catch(error){console.error(error);showToast("Logout failed. Please try again.");}
+}
+
+function showAdminLogin(){
+  document.getElementById("auth").style.display="flex";
+  document.getElementById("app").style.display="block";
+  showLogin();
+}
+
+function setAdminMessage(text,type="info-msg"){
+  const box=document.getElementById("adminMessage");
+  if(!box)return;
+  box.className="message "+type;
+  box.textContent=text;
+  box.style.display="block";
+}
+
+function clearTempleForm(){
+  ["adminTempleDocId","adminTempleName","adminTempleState","adminTempleDistrict",
+   "adminTempleCity","adminTempleDeity","adminTempleImage","adminTempleLocation",
+   "adminTempleStory","adminTempleFestivals","adminTempleNearby"].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.value="";
+  });
+}
+
+function newTempleContent(){
+  clearTempleForm();
+  openPage("admin");
+  document.getElementById("adminTempleName").focus();
+}
+
+function fillTempleForm(id){
+  const t=temples.find(x=>x.id===id);
+  if(!t)return;
+  document.getElementById("adminTempleDocId").value="temple-"+t.id;
+  document.getElementById("adminTempleName").value=t.name.replace(/ — Demo Record \d+$/,"");
+  document.getElementById("adminTempleState").value=t.state||"";
+  document.getElementById("adminTempleDistrict").value=t.district||"";
+  document.getElementById("adminTempleCity").value=t.city||"";
+  document.getElementById("adminTempleDeity").value=t.deity||"";
+  document.getElementById("adminTempleImage").value=t.image||"";
+  document.getElementById("adminTempleLocation").value=t.location||"";
+  document.getElementById("adminTempleStory").value=(t.story||[]).join("\n");
+  document.getElementById("adminTempleFestivals").value=(t.festivals||[]).join(", ");
+  document.getElementById("adminTempleNearby").value=(t.nearby||[]).join(", ");
+  openPage("admin");
+}
+
+async function saveTempleContent(){
+  if(!currentAdmin){showToast("Admin login required.");return;}
+  const name=document.getElementById("adminTempleName").value.trim();
+  const state=document.getElementById("adminTempleState").value.trim();
+  const district=document.getElementById("adminTempleDistrict").value.trim();
+  if(!name||!state||!district){
+    setAdminMessage("Temple name, state and district are required.","error");
+    return;
+  }
+  const docId=document.getElementById("adminTempleDocId").value.trim();
+  const existing=docId ? temples.find(t=>"temple-"+t.id===docId) : null;
+  const id=existing ? existing.id : Date.now();
+  const data={
+    id,name,state,district,
+    city:document.getElementById("adminTempleCity").value.trim(),
+    deity:document.getElementById("adminTempleDeity").value.trim(),
+    image:document.getElementById("adminTempleImage").value.trim(),
+    location:document.getElementById("adminTempleLocation").value.trim(),
+    story:document.getElementById("adminTempleStory").value.split("\n").map(x=>x.trim()).filter(Boolean),
+    timings:existing?.timings||{
+      Monday:"Please verify with the temple",Tuesday:"Please verify with the temple",
+      Wednesday:"Please verify with the temple",Thursday:"Please verify with the temple",
+      Friday:"Please verify with the temple",Saturday:"Please verify with the temple",
+      Sunday:"Please verify with the temple"
+    },
+    festivals:document.getElementById("adminTempleFestivals").value.split(",").map(x=>x.trim()).filter(Boolean),
+    nearby:document.getElementById("adminTempleNearby").value.split(",").map(x=>x.trim()).filter(Boolean),
+    deleted:false,updatedBy:currentAdmin.uid,updatedAt:serverTimestamp()
+  };
+  try{
+    if(docId) await setDoc(doc(db,"temples",docId),data,{merge:true});
+    else{
+      const ref=await addDoc(collection(db,"temples"),data);
+      document.getElementById("adminTempleDocId").value=ref.id;
+    }
+    setAdminMessage("Content saved. Visitors will see the update.","success");
+  }catch(error){
+    console.error(error);
+    setAdminMessage("Could not save content: "+authError(error),"error");
+  }
+}
+
+async function deleteTempleContent(docId){
+  if(!currentAdmin)return;
+  if(!confirm("Delete this Firebase content record?"))return;
+  try{
+    await deleteDoc(doc(db,"temples",docId));
+    setAdminMessage("Firebase content record deleted.","success");
+  }catch(error){
+    console.error(error);
+    setAdminMessage("Could not delete: "+authError(error),"error");
+  }
+}
+
+function renderAdminRecords(){
+  const box=document.getElementById("adminTempleList");
+  if(!box)return;
+  const entries=[...firestoreOverrides.entries()];
+  if(!entries.length){
+    box.innerHTML='<div class="info-card"><p>No Firebase content records yet. Use “Add Temple Content” to create one.</p></div>';
+    return;
+  }
+  box.innerHTML=entries.map(([docId,data])=>`
+    <div class="card"><div class="card-body">
+      <h3>${escapeHTML(data.name||"Untitled Temple")}</h3>
+      <p>📍 ${escapeHTML((data.city||"")+", "+(data.state||""))}</p>
+      <div class="actions">
+        <button class="btn primary" onclick="fillTempleForm(${Number(data.id)||0})">✏️ Edit</button>
+        <button class="btn red" onclick="deleteTempleContent('${escapeHTML(docId)}')">🗑️ Delete</button>
+      </div>
+    </div></div>`).join("");
+}
+
+function applyFirestoreContent(){
+  const map=new Map(builtInTemples.map(t=>[t.id,t]));
+  firestoreOverrides.forEach(data=>{
+    const id=Number(data.id);
+    if(data.deleted){
+      map.delete(id);
+    }else if(Number.isFinite(id)){
+      map.set(id,{...(map.get(id)||{}),...data});
+    }
+  });
+  temples.length=0;
+  map.forEach(t=>temples.push(t));
+  renderStates();
+  renderFavorites();
+  renderAdminRecords();
+}
+
+function startPublicContentListener(){
+  if(!db){return;}
+  if(firestoreUnsubscribe)return;
+  firestoreUnsubscribe=onSnapshot(collection(db,"temples"),snap=>{
+    firestoreOverrides.clear();
+    snap.forEach(d=>firestoreOverrides.set(d.id,d.data()));
+    applyFirestoreContent();
+  },error=>console.error("Firestore listener:",error));
+}
+
+function adminLogout(){logout();}
+
+window.createUser=createUser;
+window.loginUser=loginUser;
+window.sendPasswordReset=sendPasswordReset;
+window.logout=logout;
+window.showLogin=window.showLogin||showLogin;
+window.showSignup=window.showSignup||showSignup;
+window.showForgot=window.showForgot||showForgot;
+window.showAdminLogin=showAdminLogin;
+window.saveTempleContent=saveTempleContent;
+window.newTempleContent=newTempleContent;
+window.fillTempleForm=fillTempleForm;
+window.deleteTempleContent=deleteTempleContent;
+window.adminLogout=adminLogout;
+
+if(auth){
+onAuthStateChanged(auth,async(user)=>{
+  window.firebaseCurrentUser=user||null;
+  if(user){
+    const allowed=await verifyAdminRecord(user);
+    if(!allowed){
+      await signOut(auth);
+      currentAdmin=null;
+      document.getElementById("adminNavBtn").classList.add("hidden");
+      document.getElementById("adminLoginNavBtn").classList.remove("hidden");
+      document.getElementById("app").style.display="none";
+      document.getElementById("auth").style.display="flex";
+      showLogin();
+      showAuthMessage("Access denied. Only the authorized admin email can log in.","error");
+      return;
+    }
+    currentAdmin=user;
+    document.getElementById("auth").style.display="none";
+    document.getElementById("app").style.display="block";
+    document.getElementById("adminNavBtn").classList.remove("hidden");
+    document.getElementById("adminLoginNavBtn").classList.add("hidden");
+    openApp(user);
+    renderAdminRecords();
+  }else{
+    currentAdmin=null;
+    window.firebaseCurrentUser=null;
+    document.getElementById("adminNavBtn").classList.add("hidden");
+    document.getElementById("adminLoginNavBtn").classList.remove("hidden");
+    // Logged out: show ONLY the admin login screen.
+    document.getElementById("app").style.display="none";
+    document.getElementById("auth").style.display="flex";
+    showLogin();
+  }
+});
+}
+
+startPublicContentListener();
+
+</script>
+
+</body>
+</html>

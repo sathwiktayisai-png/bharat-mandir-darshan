@@ -451,7 +451,7 @@ animation:pulse 2s infinite
 
 <!-- ================= LOGIN ================= -->
 
-<section id="auth" style="display:none">
+<section id="auth" style="display:flex">
 
 <div class="auth-card">
 
@@ -480,9 +480,40 @@ animation:pulse 2s infinite
 
 <button class="btn light full" onclick="showForgot()">🔑 Forgot Admin Password</button>
 
+<button class="btn light full" onclick="showSignup()">👤 Create New User</button>
+
 <div class="demo">
 <b>👁️ Visitor Mode</b><br>
 No account is needed to browse Bharat Mandir Darshan. Only the six authorized administrators can edit website content.
+</div>
+</div>
+
+<!-- CREATE USER -->
+<div id="signupBox" class="hidden">
+
+<h2>👤 Create New User</h2>
+
+<p class="muted" style="margin-top:8px">Create a free account to save favorite temples and keep your language settings on this device.</p>
+
+<label>Full Name</label>
+<input id="signupName" type="text" placeholder="Your name" autocomplete="name" maxlength="80">
+
+<label>Email</label>
+<input id="signupEmail" type="email" placeholder="you@example.com" autocomplete="email">
+
+<label>Password</label>
+<input id="signupPassword" type="password" placeholder="At least 6 characters" autocomplete="new-password">
+
+<label>Confirm Password</label>
+<input id="signupConfirm" type="password" placeholder="Re-enter your password" autocomplete="new-password">
+
+<button class="btn primary full" onclick="createUser()">✅ Create Account</button>
+
+<button class="btn light full" onclick="showLogin()">← Back to Admin Login</button>
+
+<div class="demo">
+<b>🔐 Your account</b><br>
+Your password is handled by Firebase Authentication. Bharat Mandir Darshan does not store your password in the website database.
 </div>
 </div>
 
@@ -514,7 +545,7 @@ Enter the email address registered with your account. Firebase will send a secur
 
 <!-- ================= APP ================= -->
 
-<div id="app" style="display:block">
+<div id="app" style="display:none">
 
 <nav class="nav">
 
@@ -2172,6 +2203,9 @@ const ADMIN_EMAILS = [
 let firestoreUnsubscribe = null;
 let firestoreOverrides = new Map();
 let currentAdmin = null;
+// Keep the login screen visible on a fresh page load.
+// The app opens only after an explicit successful login/account creation.
+let explicitAuthRequest = false;
 
 function isAllowedAdminEmail(email){
   return ADMIN_EMAILS.map(x=>x.toLowerCase()).includes((email||"").toLowerCase());
@@ -2215,7 +2249,58 @@ function authError(error){
 }
 
 async function createUser(){
-  showToast("Public account creation is disabled. Only the six administrators have accounts.");
+  clearAuthMessage();
+  const name=document.getElementById("signupName")?.value.trim()||"";
+  const email=document.getElementById("signupEmail")?.value.trim().toLowerCase()||"";
+  const password=document.getElementById("signupPassword")?.value||"";
+  const confirm=document.getElementById("signupConfirm")?.value||"";
+
+  if(!name){showAuthMessage("Enter your name.","error");return;}
+  if(!email){showAuthMessage("Enter your email address.","error");return;}
+  if(password.length<6){showAuthMessage("Password must be at least 6 characters.","error");return;}
+  if(password!==confirm){showAuthMessage("Passwords do not match.","error");return;}
+  if(!auth){showAuthMessage("Firebase is not configured correctly. Check the Firebase Web App configuration.","error");return;}
+
+  try{
+    const credential=await createUserWithEmailAndPassword(auth,email,password);
+    if(name) await updateProfile(credential.user,{displayName:name});
+
+    // Normal users can browse the site, while the admin controls remain
+    // restricted to ADMIN_EMAILS.
+    currentAdmin=isAllowedAdminEmail(email) ? credential.user : null;
+    window.firebaseCurrentUser=credential.user;
+    document.getElementById("signupPassword").value="";
+    document.getElementById("signupConfirm").value="";
+    showAuthMessage("Account created successfully. Welcome to Bharat Mandir Darshan! 🙏","success");
+    showToast("Account created successfully. 🙏");
+    openApp(credential.user);
+    if(currentAdmin){
+      document.getElementById("adminNavBtn").classList.remove("hidden");
+      document.getElementById("adminLoginNavBtn").classList.add("hidden");
+      renderAdminRecords();
+    }else{
+      document.getElementById("adminNavBtn").classList.add("hidden");
+      document.getElementById("adminLoginNavBtn").classList.remove("hidden");
+    }
+  }catch(error){
+    console.error("Create user error:",error);
+    const code=error?.code||"";
+    if(code.includes("email-already-in-use")){
+      showAuthMessage("An account already exists for this email. Use Admin Login if this is an authorized administrator, or sign in through your existing account.","error");
+    }else if(code.includes("invalid-email")){
+      showAuthMessage("Enter a valid email address.","error");
+    }else if(code.includes("weak-password")){
+      showAuthMessage("Choose a stronger password with at least 6 characters.","error");
+    }else if(code.includes("operation-not-allowed")){
+      showAuthMessage("Email/Password accounts are not enabled in Firebase Authentication. Enable this provider in Firebase Console.","error");
+    }else if(code.includes("unauthorized-domain")){
+      showAuthMessage("This website domain is not authorized in Firebase. Add the site domain under Firebase Authentication → Settings → Authorized domains.","error");
+    }else if(code.includes("network-request-failed")){
+      showAuthMessage("Network error. Check your internet connection and try again.","error");
+    }else{
+      showAuthMessage(authError(error),"error");
+    }
+  }
 }
 
 function showAuthMessage(text,type="error"){
@@ -2234,6 +2319,7 @@ function clearAuthMessage(){
 
 async function loginUser(){
   clearAuthMessage();
+  explicitAuthRequest = true;
   const email=document.getElementById("loginEmail").value.trim().toLowerCase();
   const password=document.getElementById("loginPassword").value;
   if(!email||!password){showAuthMessage("Enter the admin email and password.","error");return;}
@@ -2467,26 +2553,26 @@ window.adminLogout=adminLogout;
 if(auth){
 onAuthStateChanged(auth,async(user)=>{
   window.firebaseCurrentUser=user||null;
+  if(user && !explicitAuthRequest){
+    // Firebase can restore an old session automatically. Do not bypass the login screen.
+    // Sign out the restored session so the user must explicitly log in.
+    await signOut(auth);
+    return;
+  }
   if(user){
     const allowed=await verifyAdminRecord(user);
-    if(!allowed){
-      await signOut(auth);
-      currentAdmin=null;
-      document.getElementById("adminNavBtn").classList.add("hidden");
-      document.getElementById("adminLoginNavBtn").classList.remove("hidden");
-      document.getElementById("app").style.display="none";
-      document.getElementById("auth").style.display="flex";
-      showLogin();
-      showAuthMessage("Access denied. Only the authorized admin email can log in.","error");
-      return;
-    }
-    currentAdmin=user;
+    currentAdmin=allowed ? user : null;
     document.getElementById("auth").style.display="none";
     document.getElementById("app").style.display="block";
-    document.getElementById("adminNavBtn").classList.remove("hidden");
-    document.getElementById("adminLoginNavBtn").classList.add("hidden");
+    if(allowed){
+      document.getElementById("adminNavBtn").classList.remove("hidden");
+      document.getElementById("adminLoginNavBtn").classList.add("hidden");
+      renderAdminRecords();
+    }else{
+      document.getElementById("adminNavBtn").classList.add("hidden");
+      document.getElementById("adminLoginNavBtn").classList.remove("hidden");
+    }
     openApp(user);
-    renderAdminRecords();
   }else{
     currentAdmin=null;
     window.firebaseCurrentUser=null;
